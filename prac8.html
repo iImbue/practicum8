@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecycLoop - Multi-Device Responsive Layout (Prac 8)</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f4f9f4;
+            color: #1b4332;
+        }
+
+        /* Header & Collapsible Menu Bar */
+        header {
+            background-color: #1b4332;
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-toggle {
+            background: #40916c;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        nav#collapsible-nav {
+            background-color: #2d6a4f;
+            padding: 10px 25px;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav#collapsible-nav.collapsed {
+            display: none;
+        }
+
+        nav#collapsible-nav a {
+            color: #e8f5e9;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Laptop/Desktop Layout: Main Content + Ad Sidebar */
+        .page-shell {
+            display: flex;
+            gap: 20px;
+            padding: 25px;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        main {
+            flex: 3;
+        }
+
+        aside.ad-banner {
+            flex: 1;
+            background: linear-gradient(180deg, #d8f3dc, #95d5b2);
+            border: 2px solid #2d6a4f;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Desktop Default: 3-Column Grid */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .eco-box {
+            background: white;
+            border: 1px solid #95d5b2;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+        }
+
+        .eco-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+        }
+
+        footer {
+            background-color: #081c15;
+            color: #95d5b2;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        /* DESKTOP (@media min-width: 1025px) */
+        @media (min-width: 1025px) {
+            body { font-size: 16px; }
+            .cards-container { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* TABLET (@media 601px to 1024px) */
+        @media (max-width: 1024px) and (min-width: 601px) {
+            body { font-size: 15px; }
+            .page-shell { flex-direction: column; }
+            .cards-container { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* MOBILE (@media max-width: 600px): NO GRID! Flex column stack with horizontal boxes */
+        @media (max-width: 600px) {
+            body { font-size: 14px; }
+            .page-shell { flex-direction: column; padding: 15px; }
+            
+            /* Explicitly disable grid and stack vertically via flex */
+            .cards-container {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            /* Each box displays its image and text in a horizontal manner */
+            .eco-box {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .eco-box img {
+                width: 100px;
+                height: 80px;
+                object-fit: cover;
+                flex-shrink: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h2 style="margin:0;">♻ RecycLoop Platform</h2>
+        <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
+    </header>
+
+    <nav id="collapsible-nav">
+        <a href="https://practicum2-iota.vercel.app/">Home</a>
+        <a href="#streams">Material Streams</a>
+        <a href="#rates">Buy-Back Rates</a>
+        <a href="#pickup">Pickup Hubs</a>
+    </nav>
+
+    <div class="page-shell">
+        <main>
+            <h1>Recyclable Material Streams</h1>
+            <div class="cards-container">
+                <div class="eco-box">
+                    <img src="https://placehold.co/300x200/2d6a4f/white?text=PET+Plastic" alt="PET Plastic">
+                    <div>
+                        <h3>PET Plastics</h3>
+                        <p>₹18/kg • Bottles & clear containers</p>
+                    </div>
+                </div>
+
+                <div class="eco-box">
+                    <img src="https://placehold.co/300x200/40916c/white?text=E-Waste" alt="E-Waste">
+                    <div>
+                        <h3>E-Waste & PCBs</h3>
+                        <p>₹45/kg • Laptops, cables & chargers</p>
+                    </div>
+                </div>
+
+                <div class="eco-box">
+                    <img src="https://placehold.co/300x200/1b4332/white?text=Aluminum" alt="Aluminum">
+                    <div>
+                        <h3>Scrap Aluminum</h3>
+                        <p>₹110/kg • Cans, frames & foils</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <aside class="ad-banner">
+            <h3>🌱 Partner Ad</h3>
+            <p><strong>Zero-Waste Campus Drive!</strong></p>
+            <p>Earn 2x Eco-Credits on all e-waste drop-offs this week at Karunya Hub.</p>
+        </aside>
+    </div>
+
+    <footer>
+        <p>© 2026 RecycLoop Circular Economy Solutions • Responsive Across All Viewports</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('collapsible-nav').classList.toggle('collapsed');
+        }
+    </script>
+
+</body>
+</html>
